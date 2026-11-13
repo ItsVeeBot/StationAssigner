@@ -1,0 +1,650 @@
+{
+  "type": "base",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "c7262d5e-abc1-4a9e-bcfd-b7c6225461e5",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "statuses"
+      ],
+      "writes": [
+        "s|enum|public.statuses",
+        "n|enum|public.statuses",
+        "e|enum|public.statuses",
+        "n|type|public.statuses"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "eventTypes"
+      ],
+      "writes": [
+        "s|enum|public.eventTypes",
+        "n|enum|public.eventTypes",
+        "e|enum|public.eventTypes",
+        "n|type|public.eventTypes"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "guests"
+      ],
+      "writes": [
+        "s|tbl|public.guests",
+        "n|tbl|public.guests",
+        "e|tbl|public.guests",
+        "n|rel|public.guests",
+        "n|type|public.guests",
+        "n|rel|public.guests_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_entries"
+      ],
+      "writes": [
+        "s|tbl|public.queue_entries",
+        "n|tbl|public.queue_entries",
+        "e|tbl|public.queue_entries",
+        "n|rel|public.queue_entries",
+        "n|type|public.queue_entries",
+        "n|rel|public.queue_entries_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.statuses"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_events"
+      ],
+      "writes": [
+        "s|tbl|public.queue_events",
+        "n|tbl|public.queue_events",
+        "e|tbl|public.queue_events",
+        "n|rel|public.queue_events",
+        "n|type|public.queue_events",
+        "n|rel|public.queue_events_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.eventTypes"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "stations"
+      ],
+      "writes": [
+        "s|tbl|public.stations",
+        "n|tbl|public.stations",
+        "e|tbl|public.stations",
+        "n|rel|public.stations",
+        "n|type|public.stations",
+        "n|rel|public.stations_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_entries"
+      ],
+      "writes": [
+        "s|fk|public.queue_entries.queue_entries_guest_id_guests_guest_id_fkey",
+        "n|fk|public.queue_entries.queue_entries_guest_id_guests_guest_id_fkey",
+        "e|fk|public.queue_entries.queue_entries_guest_id_guests_guest_id_fkey",
+        "n|con|public.queue_entries.queue_entries_guest_id_guests_guest_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.queue_entries",
+        "n|sch|public",
+        "n|tbl|public.guests",
+        "n|sch|public",
+        "n|col|public.queue_entries.guest_id",
+        "n|col|public.guests.guest_id",
+        "e|uniqueness|public.guests.guest_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_entries"
+      ],
+      "writes": [
+        "s|fk|public.queue_entries.queue_entries_assigned_station_id_stations_station_id_fkey",
+        "n|fk|public.queue_entries.queue_entries_assigned_station_id_stations_station_id_fkey",
+        "e|fk|public.queue_entries.queue_entries_assigned_station_id_stations_station_id_fkey",
+        "n|con|public.queue_entries.queue_entries_assigned_station_id_stations_station_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.queue_entries",
+        "n|sch|public",
+        "n|tbl|public.stations",
+        "n|sch|public",
+        "n|col|public.queue_entries.assigned_station_id",
+        "n|col|public.stations.station_id",
+        "e|uniqueness|public.stations.station_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_events"
+      ],
+      "writes": [
+        "s|fk|public.queue_events.queue_events_queue_id_queue_entries_queue_id_fkey",
+        "n|fk|public.queue_events.queue_events_queue_id_queue_entries_queue_id_fkey",
+        "e|fk|public.queue_events.queue_events_queue_id_queue_entries_queue_id_fkey",
+        "n|con|public.queue_events.queue_events_queue_id_queue_entries_queue_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.queue_events",
+        "n|sch|public",
+        "n|tbl|public.queue_entries",
+        "n|sch|public",
+        "n|col|public.queue_events.queue_id",
+        "n|col|public.queue_entries.queue_id",
+        "e|uniqueness|public.queue_entries.queue_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "queue_events"
+      ],
+      "writes": [
+        "s|fk|public.queue_events.queue_events_station_id_stations_station_id_fkey",
+        "n|fk|public.queue_events.queue_events_station_id_stations_station_id_fkey",
+        "e|fk|public.queue_events.queue_events_station_id_stations_station_id_fkey",
+        "n|con|public.queue_events.queue_events_station_id_stations_station_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.queue_events",
+        "n|sch|public",
+        "n|tbl|public.stations",
+        "n|sch|public",
+        "n|col|public.queue_events.station_id",
+        "n|col|public.stations.station_id",
+        "e|uniqueness|public.stations.station_id"
+      ]
+    }
+  ],
+  "ddl": [
+    {
+      "schema": "public",
+      "name": "guests",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "queue_entries",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "queue_events",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "stations",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "statuses",
+      "values": [
+        "available",
+        "busy",
+        "down"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "eventTypes",
+      "values": [
+        ""
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "table": "guests",
+      "name": "guest_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "guests_guest_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "guests",
+      "name": "display_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "guests",
+      "name": "phone_number",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "guests",
+      "name": "sms_consent",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "queue_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "queue_entries_queue_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "queue_number",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "arrival_time",
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "status",
+      "type": "statuses",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "guest_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "assigned_station_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "event_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "queue_events_event_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "queue_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "station_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "event_type",
+      "type": "eventTypes",
+      "typeSchema": "public",
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "event_timestamp",
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "stations",
+      "name": "station_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "stations_station_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "stations",
+      "name": "station_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "stations",
+      "name": "is_available",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "stations",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "queue_entries_guest_id_guests_guest_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "guest_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "guests",
+      "columnsTo": [
+        "guest_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "queue_entries_assigned_station_id_stations_station_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "assigned_station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "queue_events_queue_id_queue_entries_queue_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "queue_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "queue_entries",
+      "columnsTo": [
+        "queue_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "queue_events_station_id_stations_station_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "guests",
+      "name": "guests_pkey",
+      "columns": [
+        "guest_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "queue_entries",
+      "name": "queue_entries_pkey",
+      "columns": [
+        "queue_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "queue_events",
+      "name": "queue_events_pkey",
+      "columns": [
+        "event_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "stations",
+      "name": "stations_pkey",
+      "columns": [
+        "station_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    }
+  ]
+}

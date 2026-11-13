@@ -3,15 +3,15 @@ services:
     image: postgres:16-alpine
     restart: always
     environment:
-      - POSTGRES_USER=devuser
-      - POSTGRES_PASSWORD=devpassword
+      - POSTGRES_USER=devuser #change for production
+      - POSTGRES_PASSWORD=devpassword #change for production
       - POSTGRES_DB=station_db
     ports:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U devuser -d station_db"]
+      test: ["CMD-SHELL", "pg_isready -U devuser -d station_db"] #Change -U for production
       interval: 5s
       timeout: 5s
       retries: 5
